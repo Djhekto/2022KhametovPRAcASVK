@@ -1,0 +1,2 @@
+def avrg(a,*b):
+	
