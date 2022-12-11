@@ -1,0 +1,2 @@
+a = DivStr("XcDfQWEasdERTdfgRTY")
+print(a % 4)
