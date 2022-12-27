@@ -33,7 +33,10 @@ for i in range(len(sp1)):#k-vo strok sp1
         otvet.append(sum(input1))
         input1=[]
 
-#print(otvet)
-for elem in otvet[:-1]:
-    print(elem,end=",")
+#print(otvet,hehe)
+for ii,elem in enumerate(otvet[:-1]):
+    if (ii+1)%hehe ==0:
+        print(elem,end="\n")
+    else:
+        print(elem,end=",")
 print(otvet[-1],end="")
