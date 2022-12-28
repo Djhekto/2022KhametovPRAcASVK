@@ -1,27 +1,47 @@
-from math import sqrt
+class BadTriangle(Exception): pass
 
-def triangleSquare(s):
+class InvalidInput(Exception): pass
+
+def triangleSquare(a):
     try:
-        (x1, y1), (x2, y2), (x3, y3) = eval(s)
-    except:
-        return -1
-
-    a = sqrt((x1 - x2)**2 + ((y1 - y2)**2))
-    b = sqrt((x2 - x3)**2 + ((y2 - y3)**2))
-    c = sqrt((x3 - x1)**2 + ((y3 - y1)**2))
-    maxstorona = max([a,b,c])
-    summast = min([a + b, b + c, c + a])
-    if maxstorona >= summast:
-        return -2
-    
-    return 0.5 * abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1))
-
-while 1:
-    s = triangleSquare(input())
-    if s == -1:
-        print("Invalid input")
-    if s == -2:
+        try:
+            a = eval(a)
+            a = op_ins_2(a)
+            if not a:
+                raise Exception
+        except:
+            raise InvalidInput
+        else:
+            A = a[0]
+            B = a[1]
+            C = a[2]
+            cur = [A,B,C]
+            res = [((cur[i][0] - cur[j][0])**2 + (cur[i][1] - cur[j][1])**2)**0.5 for i in range(2) for j in range(i+1,3)]
+            if res[0] < res[1] + res[2] and res[1] < res[0] + res[2] and res[2] < res[0] + res[1]:
+                S = abs((B[0]-A[0])*(C[1]-A[1])-(C[0]-A[0])*(B[1]-A[1]))/2
+            else:
+                raise BadTriangle
+    except InvalidInput:
+        str1="Invalid input"
+        print(str1)
+    except BadTriangle:
         print("Not a triangle")
-    if s >= 0:
-        print(s)
-        break
+    else:
+        print('%.2f' %S)
+
+def op_ins_2(a):
+    if isinstance(a, tuple):
+        if len(a) == 3:
+            for i in range(3):
+                if not isinstance(a[i], tuple):
+                    return ''
+                if (len(a[i]) != 2 and isinstance(a[i][0], float | int) and isinstance(a[i][1], float | int)):
+                    return ''
+            return a
+    return ''
+
+try:
+    while a:= input():
+        triangleSquare(a)
+except:
+    pass
