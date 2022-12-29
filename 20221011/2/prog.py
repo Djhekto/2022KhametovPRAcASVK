@@ -1,8 +1,8 @@
 from math import *
 
 width, hight, a, b, func = input().split()
-width = int(width)
-hight = int(hight)
+width = int(width)-1
+hight = int(hight)-1
 a = int(a)
 b = int(b)
 
