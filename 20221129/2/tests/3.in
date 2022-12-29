@@ -1,0 +1,10 @@
+class C(metaclass=check):
+    A: list[int]
+    B: str = "QQ"
+
+c = C()
+print(c.check_annotations())
+c.A = "ZZ"
+print(c.check_annotations())
+c.A = [100500, "shrek", 0]
+print(c.check_annotations())
