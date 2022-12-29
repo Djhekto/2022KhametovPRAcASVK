@@ -34,13 +34,13 @@ async def merge(A, B, start, middle, finish, event_in1, event_in2, event_out):
             j += counter
         k += counter
     while counter:
-        if i > middle:
+        if i >= middle:
             break
         B[k] = A[i]
         i += counter
         k += counter
     while counter:
-        if j > finish:
+        if j >= finish:
             break
         B[k] = A[j]
         j += counter
