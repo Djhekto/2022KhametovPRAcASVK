@@ -3,40 +3,39 @@
 #.__init__(), именные параметры которого задают эти поля
 #.__str__() выводит содержимое полей объекта в алфавитном порядке
 
-from string import ascii_lowercase
-
 class Alpha:
-    __slots__ = list(ascii_lowercase)
+    __slots__ = [x for x in 'abcdefghijklmnopqrstuvwxyz']
 
     def __init__(self, **kwargs):
-        for c in kwargs: self.__setattr__(c, kwargs[c])
+        for x in kwargs:
+            self.__setattr__(x, kwargs[x])
 
     def __str__(self):
-        for c in self.__slots__:
-            if hasattr(self, c):
-                ahaha = ", ".join(c + ": " + str(self.__getattribute__(c)))
-        return ahaha
+        s = ""
+        counter = 2
+        for x in self.__slots__:
+            if hasattr(self, x):
+                s += f"{x}: " + str(self.__getattribute__(x)) + ", "
+        if s:
+            return s[:-counter]
 
 
 class AlphaQ:
-    def __init__(self, **kwargs):
-        for c in kwargs:
-            if c in ascii_lowercase:
-                self.__setattr__(c, kwargs[c])
-            else:
-                raise AttributeError
+    _letters = [x for x in 'abcdefghijklmnopqrstuvwxyz']
 
-    def __setattr__(self, key, value):
-        if key in ascii_lowercase:
-            self.__dict__[key] = value
+    def __init__(self, **kwargs):
+        for i,(k, v) in enumerate(kwargs.items()):
+            setattr(self, k, v)
+
+    def __setattr__(self, k, v):
+        if k in self._letters:
+            self.__dict__[k] = v
         else:
             raise AttributeError
 
     def __str__(self):
-        for c in ascii_lowercase:
-            if hasattr(self, c):
-                ahhaa = ", ".join(c + ": " + str(self.__getattribute__(c)))
-        return ahhaa
+        s_dict = sorted(self.__dict__.items())
+        return ", ".join(f"{k}: {v}" for (k, v) in s_dict)
 
 import sys
 exec(sys.stdin.read())
